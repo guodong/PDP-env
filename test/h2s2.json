@@ -1,0 +1,108 @@
+{
+  "hosts": {
+    "h1": {
+      "ip": "10.0.1.1/24",
+      "mac": "08:00:00:00:01:11",
+      "commands": [
+        "route add default gw 10.0.1.10 dev h1-eth0",
+        "arp -i h1-eth0 -s 10.0.1.10 08:00:00:00:01:00"
+      ]
+    },
+    "h2": {
+      "ip": "10.0.2.2/24",
+      "mac": "08:00:00:00:02:22",
+      "commands": [
+        "route add default gw 10.0.2.20 dev h2-eth0",
+        "arp -i h2-eth0 -s 10.0.2.20 08:00:00:00:02:00"
+      ]
+    }
+  },
+  "switches": {
+    "s1": {
+      "exe": "simple_switch_grpc",
+      "cpu_port": 128,
+      "p4info": "basic.p4.p4info.txt",
+      "pipeline": "basic.json",
+      "table_entries": [
+        {
+          "table": "MyIngress.ipv4_lpm",
+          "match": {
+            "hdr.ipv4.dstAddr": [
+              "10.0.1.1",
+              32
+            ]
+          },
+          "action_name": "MyIngress.ipv4_forward",
+          "action_params": {
+            "dstAddr": "08:00:00:00:01:11",
+            "port": 1
+          }
+        },
+        {
+          "table": "MyIngress.ipv4_lpm",
+          "match": {
+            "hdr.ipv4.dstAddr": [
+              "10.0.2.2",
+              32
+            ]
+          },
+          "action_name": "MyIngress.ipv4_forward",
+          "action_params": {
+            "dstAddr": "08:00:00:00:02:22",
+            "port": 2
+          }
+        }
+      ]
+    },
+    "s2": {
+      "exe": "simple_switch_grpc",
+      "cpu_port": 128,
+      "p4info": "basic.p4.p4info.txt",
+      "pipeline": "basic.json",
+      "table_entries": [
+        {
+          "table": "MyIngress.ipv4_lpm",
+          "match": {
+            "hdr.ipv4.dstAddr": [
+              "10.0.1.1",
+              32
+            ]
+          },
+          "action_name": "MyIngress.ipv4_forward",
+          "action_params": {
+            "dstAddr": "08:00:00:00:01:11",
+            "port": 1
+          }
+        },
+        {
+          "table": "MyIngress.ipv4_lpm",
+          "match": {
+            "hdr.ipv4.dstAddr": [
+              "10.0.2.2",
+              32
+            ]
+          },
+          "action_name": "MyIngress.ipv4_forward",
+          "action_params": {
+            "dstAddr": "08:00:00:00:02:22",
+            "port": 2
+          }
+        }
+      ]
+    }
+  },
+  "links": [
+    [
+      "h1",
+      "s1"
+    ],
+    [
+      "s1",
+      "s2"
+    ],
+    [
+      "h2",
+      "s2"
+    ]
+  ]
+}
