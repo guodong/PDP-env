@@ -8,6 +8,7 @@ apt-get update
 KERNEL=$(uname -r)
 DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
 apt-get install -y --no-install-recommends --fix-missing\
+  sudo \
   autoconf \
   automake \
   bison \
@@ -169,7 +170,6 @@ sudo ldconfig
 cd ../..
 
 # PDP-env deps
+git clone http://github.com/guodong/PDP-env
+cd PDP-env
 sudo pip install -r requirements.txt
-
-# Do this last!
-sudo reboot
