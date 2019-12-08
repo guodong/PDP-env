@@ -17,7 +17,7 @@ NUM_CORES=`grep -c ^processor /proc/cpuinfo`
 # --- Protobuf --- #
 git clone https://github.com/google/protobuf.git
 cd protobuf
-git submodule update --init --recursive
+# git submodule update --init --recursive
 # git checkout ${PROTOBUF_COMMIT}
 # libtoolize --automake --copy --debug --force
 export CFLAGS="-Os"
@@ -114,8 +114,3 @@ make -j1
 sudo make install
 sudo ldconfig
 cd ../..
-
-# PDP-env deps
-git clone http://github.com/guodong/PDP-env
-cd PDP-env
-sudo pip install -r requirements.txt
