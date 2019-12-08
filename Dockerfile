@@ -120,7 +120,7 @@ RUN git clone https://github.com/p4lang/p4c && \
     mkdir -p build && \
     cd build && \
     cmake .. && \
-    make -j1 && \
+    make -j2 && \
     sudo make install && \
     sudo ldconfig
 
