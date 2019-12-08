@@ -3,11 +3,11 @@
 # Print commands and exit on errors
 set -xe
 
-apt-get update
+apt update
 
 KERNEL=$(uname -r)
 DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
-apt-get install -y --no-install-recommends --fix-missing\
+apt install -y --no-install-recommends --fix-missing\
   sudo \
   autoconf \
   automake \
