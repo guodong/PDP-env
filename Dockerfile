@@ -74,7 +74,7 @@ RUN git clone https://github.com/grpc/grpc.git && \
 
 RUN git clone https://github.com/p4lang/behavioral-model.git && \
     cd behavioral-model && \
-    git checkout ${BMV2_COMMIT} && \
+    git checkout "b447ac4c0cfd83e5e72a3cc6120251c1e91128ab" && \
     tmpdir=`mktemp -d -p .` && \
     cd ${tmpdir} && \
     bash ../travis/install-thrift.sh && \
@@ -88,7 +88,7 @@ RUN git clone https://github.com/p4lang/behavioral-model.git && \
 # --- PI/P4Runtime --- #
 RUN git clone https://github.com/p4lang/PI.git && \
     cd PI && \
-    git checkout ${PI_COMMIT} && \
+    git checkout "41358da0ff32c94fa13179b9cee0ab597c9ccbcc" && \
     git submodule update --init --recursive && \
     ./autogen.sh && \
     ./configure --with-proto && \
@@ -115,7 +115,7 @@ RUN cd behavioral-model && \
 # --- P4C --- #
 RUN git clone https://github.com/p4lang/p4c && \
     cd p4c && \
-    git checkout ${P4C_COMMIT} && \
+    git checkout "69e132d0d663e3408d740aaf8ed534ecefc88810" && \
     git submodule update --init --recursive && \
     mkdir -p build && \
     cd build && \
