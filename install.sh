@@ -15,42 +15,42 @@ GRPC_COMMIT="v1.3.2"
 NUM_CORES=`grep -c ^processor /proc/cpuinfo`
 
 # --- Protobuf --- #
-git clone https://github.com/google/protobuf.git
-cd protobuf
+#git clone https://github.com/google/protobuf.git
+#cd protobuf
 # git submodule update --init --recursive
-git checkout ${PROTOBUF_COMMIT}
+#git checkout ${PROTOBUF_COMMIT}
 # libtoolize --automake --copy --debug --force
-export CFLAGS="-Os"
-export CXXFLAGS="-Os"
-export LDFLAGS="-Wl,-s"
-./autogen.sh
-./configure --prefix=/usr
-make -j${NUM_CORES}
-sudo make install
-sudo ldconfig
-unset CFLAGS CXXFLAGS LDFLAGS
+#export CFLAGS="-Os"
+#export CXXFLAGS="-Os"
+#export LDFLAGS="-Wl,-s"
+#./autogen.sh
+#./configure --prefix=/usr
+#make -j${NUM_CORES}
+#sudo make install
+#sudo ldconfig
+#unset CFLAGS CXXFLAGS LDFLAGS
 # Force install python module
-cd python
-sudo python setup.py install
-cd ../..
+#cd python
+#sudo python setup.py install
+#cd ../..
 
 # --- Mininet --- #
-git clone git://github.com/mininet/mininet mininet
-sudo ./mininet/util/install.sh -nwv
+#git clone git://github.com/mininet/mininet mininet
+#sudo ./mininet/util/install.sh -nwv
 
 # --- gRPC --- #
-git clone https://github.com/grpc/grpc.git
-cd grpc
-git checkout ${GRPC_COMMIT}
-git submodule update --init --recursive
-export LDFLAGS="-Wl,-s"
-make -j${NUM_CORES}
-sudo make install
-sudo ldconfig
-unset LDFLAGS
-cd ..
+#git clone https://github.com/grpc/grpc.git
+#cd grpc
+#git checkout ${GRPC_COMMIT}
+#git submodule update --init --recursive
+#export LDFLAGS="-Wl,-s"
+#make -j${NUM_CORES}
+#sudo make install
+#sudo ldconfig
+#unset LDFLAGS
+#cd ..
 # Install gRPC Python Package
-sudo pip install grpcio
+#sudo pip install grpcio
 
 # --- BMv2 deps (needed by PI) --- #
 git clone https://github.com/p4lang/behavioral-model.git

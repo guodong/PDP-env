@@ -53,9 +53,80 @@ RUN apt-get install -y --no-install-recommends --fix-missing\
   wget \
   xcscope-el
 
-RUN libtoolize --automake --copy --debug --force
+WORKDIR /usr/src
+RUN git clone git://github.com/mininet/mininet mininet && sudo ./mininet/util/install.sh -nwv
+RUN git clone https://github.com/google/protobuf.git && \
+    cd protobuf && \
+    git checkout "v3.2.0" && \
+    ./autogen.sh && \
+    ./configure --prefix=/usr && \
+    make && sudo make install && sudo ldconfig && \
+    cd python && sudo python setup.py install
+
+RUN git clone https://github.com/grpc/grpc.git && \
+    cd grpc && \
+    git checkout "v1.3.2" && \
+    git submodule update --init --recursive && \
+    make && \
+    sudo make install && \
+    sudo ldconfig && \
+    sudo pip install grpcio
+
+RUN git clone https://github.com/p4lang/behavioral-model.git && \
+    cd behavioral-model && \
+    git checkout ${BMV2_COMMIT} && \
+    tmpdir=`mktemp -d -p .` && \
+    cd ${tmpdir} && \
+    bash ../travis/install-thrift.sh && \
+    bash ../travis/install-nanomsg.sh && \
+    sudo ldconfig && \
+    bash ../travis/install-nnpy.sh && \
+    cd .. && \
+    sudo rm -rf $tmpdir
+
+
+# --- PI/P4Runtime --- #
+RUN git clone https://github.com/p4lang/PI.git && \
+    cd PI && \
+    git checkout ${PI_COMMIT} && \
+    git submodule update --init --recursive && \
+    ./autogen.sh && \
+    ./configure --with-proto && \
+    make && \
+    sudo make install && \
+    sudo ldconfig
+
+
+# --- Bmv2 --- #
+RUN cd behavioral-model && \
+    ./autogen.sh && \
+    ./configure --enable-debugger --with-pi && \
+    make && \
+    sudo make install && \
+    sudo ldconfig && \
+    cd targets/simple_switch_grpc && \
+    ./autogen.sh && \
+    ./configure --with-thrift && \
+    make && \
+    sudo make install && \
+    sudo ldconfig
+
+
+# --- P4C --- #
+RUN git clone https://github.com/p4lang/p4c && \
+    cd p4c && \
+    git checkout ${P4C_COMMIT} && \
+    git submodule update --init --recursive && \
+    mkdir -p build && \
+    cd build && \
+    cmake .. && \
+    make -j1 && \
+    sudo make install && \
+    sudo ldconfig
+
+#RUN libtoolize --automake --copy --debug --force
 
 # PDP-env deps
-RUN git clone https://github.com/guodong/PDP-env /PDP-env && cd /PDP-env &&  ./install.sh && cd /PDP-env && pip install -r requirements.txt
+RUN git clone https://github.com/guodong/PDP-env /PDP-env && cd /PDP-env && pip install -r requirements.txt
 
 CMD ["/bin/bash"]
