@@ -17,6 +17,7 @@ NUM_CORES=`grep -c ^processor /proc/cpuinfo`
 # --- Protobuf --- #
 git clone https://github.com/google/protobuf.git
 cd protobuf
+git submodule update --init --recursive
 # git checkout ${PROTOBUF_COMMIT}
 # libtoolize --automake --copy --debug --force
 export CFLAGS="-Os"
