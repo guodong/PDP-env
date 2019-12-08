@@ -5,60 +5,6 @@ set -xe
 
 apt update
 
-KERNEL=$(uname -r)
-DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
-apt install -y --no-install-recommends --fix-missing\
-  sudo \
-  autoconf \
-  automake \
-  bison \
-  build-essential \
-  ca-certificates \
-  cmake \
-  cpp \
-  curl \
-  flex \
-  git \
-  libboost-dev \
-  libboost-filesystem-dev \
-  libboost-iostreams1.58-dev \
-  libboost-program-options-dev \
-  libboost-system-dev \
-  libboost-test-dev \
-  libboost-thread-dev \
-  libc6-dev \
-  libevent-dev \
-  libffi-dev \
-  libfl-dev \
-  libgc-dev \
-  libgc1c2 \
-  libgflags-dev \
-  libgmp-dev \
-  libgmp10 \
-  libgmpxx4ldbl \
-  libjudy-dev \
-  libpcap-dev \
-  libreadline6 \
-  libreadline6-dev \
-  libssl-dev \
-  libtool \
-  linux-headers-$KERNEL\
-  make \
-  mktemp \
-  pkg-config \
-  python \
-  python-dev \
-  python-ipaddr \
-  python-pip \
-  python-psutil \
-  python-scapy \
-  python-setuptools \
-  tcpdump \
-  unzip \
-  wget \
-  xcscope-el
-
-
 #P4 related install
 #Src
 BMV2_COMMIT="b447ac4c0cfd83e5e72a3cc6120251c1e91128ab"  # August 10, 2019
