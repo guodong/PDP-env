@@ -56,6 +56,6 @@ RUN apt-get install -y --no-install-recommends --fix-missing\
 RUN libtoolize --automake --copy --debug --force
 
 # PDP-env deps
-RUN git clone https://github.com/guodong/PDP-env && cd PDP-env && && sh install.sh && pip install -r requirements.txt
+RUN git clone https://github.com/guodong/PDP-env && cd PDP-env && sh install.sh && pip install -r requirements.txt
 
 CMD ["/bin/bash"]
