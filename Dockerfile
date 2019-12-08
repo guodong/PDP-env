@@ -51,7 +51,7 @@ RUN apt-get install -y --no-install-recommends --fix-missing\
   tcpdump \
   unzip \
   wget \
-  xcscope-el \
+  xcscope-el
 
 RUN libtoolize --automake --copy --debug --force
 
