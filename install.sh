@@ -3,8 +3,6 @@
 # Print commands and exit on errors
 set -xe
 
-apt update
-
 #P4 related install
 #Src
 BMV2_COMMIT="b447ac4c0cfd83e5e72a3cc6120251c1e91128ab"  # August 10, 2019
@@ -17,7 +15,6 @@ GRPC_COMMIT="v1.3.2"
 NUM_CORES=`grep -c ^processor /proc/cpuinfo`
 
 # --- Protobuf --- #
-libtoolize --automake --copy --debug --force
 git clone https://github.com/google/protobuf.git
 cd protobuf
 git checkout ${PROTOBUF_COMMIT}
