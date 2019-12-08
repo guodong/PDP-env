@@ -70,11 +70,8 @@ GRPC_COMMIT="v1.3.2"
 #Get the number of cores to speed up the compilation process
 NUM_CORES=`grep -c ^processor /proc/cpuinfo`
 
-# --- Mininet --- #
-git clone git://github.com/mininet/mininet mininet
-sudo ./mininet/util/install.sh -nwv
-
 # --- Protobuf --- #
+libtoolize --automake --copy --debug --force
 git clone https://github.com/google/protobuf.git
 cd protobuf
 git checkout ${PROTOBUF_COMMIT}
@@ -91,6 +88,10 @@ unset CFLAGS CXXFLAGS LDFLAGS
 cd python
 sudo python setup.py install
 cd ../..
+
+# --- Mininet --- #
+git clone git://github.com/mininet/mininet mininet
+sudo ./mininet/util/install.sh -nwv
 
 # --- gRPC --- #
 git clone https://github.com/grpc/grpc.git
