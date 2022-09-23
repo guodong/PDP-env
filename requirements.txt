@@ -1,4 +1,4 @@
 psutil==5.6.7
 grpc==0.3-19
 p4==0.1.5
-protobuf==3.11.1
+protobuf==3.18.3
